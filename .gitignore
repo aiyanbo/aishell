@@ -1,3 +1,10 @@
 .DS_Store
 .idea
 *.iml
+
+
+# Dart
+
+build
+packages
+web/packages
