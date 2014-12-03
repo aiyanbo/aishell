@@ -31,6 +31,28 @@ class Shell {
   void keyListener(KeyboardEvent event) {
     if (event.keyCode == KeyCode.ENTER) {
       logger.fine("Start execute command: ${(event.target as InputElement).value}");
+      // Execute command
+      DivElement response = new DivElement();
+      InputElement input = event.target as InputElement;
+      response.innerHtml = input.value;
+      input.readOnly = true;
+      input.autofocus = false;
+      input.parent.children.add(response);
+      input.parent.parent.children.add(createSession());
     }
+  }
+
+  DivElement createSession() {
+    DivElement inter = new DivElement();
+    SpanElement flag = new SpanElement();
+    flag.innerHtml = "\$";
+    InputElement input = new InputElement();
+    input.autofocus = true;
+    input.onKeyPress.listen(keyListener);
+    inter.children.add(flag);
+    inter.children.add(input);
+    DivElement session = new DivElement();
+    session.children.add(inter);
+    return session;
   }
 }
