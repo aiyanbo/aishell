@@ -1,65 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AiShell</title>
-<link rel="stylesheet" href="index.css">
-<link rel="stylesheet" href="packages/bootstrap/css/bootstrap.min.css">
-<script type="text/javascript"
-  src="packages/jquery_for_pub/1.11.0/jquery-1.11.0.js"></script>
-<script src="packages/bootstrap/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AiShell</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="packages/bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript"
+            src="packages/jquery_for_pub/1.11.0/jquery-1.11.0.js"></script>
+    <script src="packages/bootstrap/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed"
-          data-toggle="collapse" data-target="#navbar"
-          aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span> <span
-            class="icon-bar"></span> <span class="icon-bar"></span> <span
-            class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">AiShell</a>
-      </div>
-      <div id="navbar" class="navbar-collapse collapse">
-        <div class="navbar-form navbar-right" role="status">
-          <button class="btn btn-default glyphicon-tooltip"
-            id="full_screen">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">AiShell</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <div class="navbar-form navbar-right" role="status">
+                <button class="btn btn-default glyphicon-tooltip"
+                        id="full_screen">
             <span class="glyphicon glyphicon-fullscreen"
-              id="glyphicon_full_screen" data-toggle="tooltip"
-              data-placement="left" title="Full screen"></span>
-          </button>
+                  id="glyphicon_full_screen" data-toggle="tooltip"
+                  data-placement="left" title="Full screen"></span>
+                </button>
+            </div>
         </div>
-      </div>
     </div>
-  </nav>
-  <div class="container">
+</nav>
+<div class="container">
     <div id="shadow">
-      <div id="console">
-        <div id="tips">
-          <div>AiShell browser Shell version:0.0.1</div>
-          <div>type "help" for help</div>
-          <div>syntax "max 1,2,3,4,5"</div>
+        <div id="console">
+            <div id="tips">
+                <div>AiShell browser Shell version:0.0.1</div>
+                <div>type "help" for help</div>
+                <div>syntax "max 1,2,3,4,5"</div>
+            </div>
+            <div class="session">
+                <div>
+                    <span>$</span><input id="first" autofocus="autofocus">
+                </div>
+            </div>
         </div>
-        <div class="session">
-          <div>
-            <span>$</span><input autofocus="autofocus">
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-  <script type="application/dart" src="index.dart"></script>
-  <!-- for this next line to work, your pubspec.yaml file must have a dependency on 'browser' -->
-  <script src="packages/browser/dart.js"></script>
-  <script>
-    // bootstrap not perfect support dart yet.
+</div>
+<script type="application/dart" src="index.dart"></script>
+<!-- for this next line to work, your pubspec.yaml file must have a dependency on 'browser' -->
+<script src="packages/browser/dart.js"></script>
+<script>
+    // Bootstrap not perfect support dart yet.
     $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip()
     })
-  </script>
+</script>
 </body>
 </html>
