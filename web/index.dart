@@ -32,27 +32,39 @@ class Shell {
     if (event.keyCode == KeyCode.ENTER) {
       logger.fine("Start execute command: ${(event.target as InputElement).value}");
       // Execute command
-      DivElement response = new DivElement();
-      InputElement input = event.target as InputElement;
+      var response = new DivElement();
+      var input = event.target as InputElement;
       response.innerHtml = input.value;
       input.readOnly = true;
       input.autofocus = false;
       input.parent.children.add(response);
-      input.parent.parent.children.add(createSession());
+      var session = createSession();
+      input.parent.parent.children.add(session.session);
+      session.input.focus();
     }
   }
 
-  DivElement createSession() {
-    DivElement inter = new DivElement();
-    SpanElement flag = new SpanElement();
+  Session createSession() {
+    var inter = new DivElement();
+    var flag = new SpanElement();
     flag.innerHtml = "\$";
     InputElement input = new InputElement();
     input.autofocus = true;
     input.onKeyPress.listen(keyListener);
     inter.children.add(flag);
     inter.children.add(input);
-    DivElement session = new DivElement();
+    var session = new DivElement();
     session.children.add(inter);
-    return session;
+    return new Session(s:session, i:input);
+  }
+}
+
+class Session {
+  var session = null;
+  var input = null;
+
+  Session({DivElement s, InputElement i}) {
+    this.session = s;
+    this.input = i;
   }
 }
