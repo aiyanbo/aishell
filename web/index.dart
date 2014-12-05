@@ -6,25 +6,34 @@ void main() {
   Logger.root.onRecord.listen((LogRecord rec) {
     print('${rec.level.name}: ${rec.time}: ${rec.message}');
   });
-  querySelector("#full_screen").onClick.listen((event) => querySelector("#console").requestFullscreen());
+
+  Tools tools = new Tools();
+  tools.startup();
+
   Shell shell = new Shell();
+  shell.startup();
+}
+
+class Tools {
+  void startup({String fullScreenButtonSelector: "#full_screen", String consoleSelector: "#console"}) {
+    querySelector(fullScreenButtonSelector).onClick.listen((event) => querySelector(consoleSelector).requestFullscreen());
+  }
 }
 
 
 class Shell {
   final Logger logger = new Logger("Shell");
-  DivElement console;
+  DivElement _console;
 
   Shell({String consoleSelector: "#console"}) {
-    console = querySelector(consoleSelector);
-    _init();
+    _console = querySelector(consoleSelector);
   }
 
-  void _init() {
-    console.querySelector("#first").onKeyPress.listen(keyListener);
+  void startup() {
+    _console.querySelector("#first").onKeyPress.listen(keyListener);
   }
 
-  void executeCommand(String command) {
+  bool registerComponentObject(object) {
 
   }
 
