@@ -1,5 +1,7 @@
 import "dart:html";
-import 'package:logging/logging.dart';
+import "dart:mirrors";
+import "dart:math" as math;
+import "package:logging/logging.dart";
 
 void main() {
   Logger.root.level = Level.ALL;
@@ -12,11 +14,17 @@ void main() {
 
   Shell shell = new Shell();
   shell.startup();
+
+  shell.registerComponentObject(tools);
 }
 
 class Tools {
   void startup({String fullScreenButtonSelector: "#full_screen", String consoleSelector: "#console"}) {
     querySelector(fullScreenButtonSelector).onClick.listen((event) => querySelector(consoleSelector).requestFullscreen());
+  }
+
+  String help() {
+    return "-- help: Print documents";
   }
 }
 
@@ -24,6 +32,7 @@ class Tools {
 class Shell {
   final Logger logger = new Logger("Shell");
   DivElement _console;
+  Map<String, InstanceMirror> instanceCommands = new Map<String, InstanceMirror>();
 
   Shell({String consoleSelector: "#console"}) {
     _console = querySelector(consoleSelector);
@@ -34,26 +43,45 @@ class Shell {
   }
 
   bool registerComponentObject(object) {
-
+    var im = reflect(object);
+    Iterable<DeclarationMirror> decls =
+    im.type.declarations.values.where(
+            (dm) => dm is MethodMirror && dm.isRegularMethod);
+    decls.forEach((MethodMirror mm) {
+      var name = MirrorSystem.getName(mm.simpleName);
+      if ("startup" != name) {
+        instanceCommands[name] = im ;
+      }
+    });
   }
 
   void keyListener(KeyboardEvent event) {
     if (event.keyCode == KeyCode.ENTER) {
-      logger.fine("Start execute command: ${(event.target as InputElement).value}");
-      // Execute command
-      var response = new DivElement();
       var input = event.target as InputElement;
-      response.innerHtml = input.value;
+      String command = (event.target as InputElement).value;
+      if (command.isNotEmpty) {
+        logger.fine("Start execute command: ${(event.target as InputElement).value}");
+        var response = new DivElement();
+        response.innerHtml = executeCommand(command);
+        input.parent.children.add(response);
+      }
       input.readOnly = true;
       input.autofocus = false;
-      input.parent.children.add(response);
-      var session = createSession();
+      var session = _createSession();
       input.parent.parent.children.add(session.session);
       session.input.focus();
     }
   }
 
-  Session createSession() {
+  String executeCommand(String command) {
+    if (instanceCommands.containsKey(command)) {
+      var im = instanceCommands[command].invoke(new Symbol(command), []);
+      return im.reflectee;
+    }
+    return "Command not found: ${command}";
+  }
+
+  Session _createSession() {
     var inter = new DivElement();
     var flag = new SpanElement();
     flag.innerHtml = "\$";
