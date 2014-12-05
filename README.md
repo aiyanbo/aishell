@@ -1,5 +1,6 @@
 Aishell
 =======
+[![Build Status](https://drone.io/github.com/aiyanbo/aishell/status.png)](https://drone.io/github.com/aiyanbo/aishell/latest)
 
 Aishell 是我很小的时候看 Python 视频时，发现它能在输入命令的时候直接得出计算结果。而是我想能不能搞一个这样的玩具玩一下呢？
 后来我发现很多 Geek 也在玩这个，其中有一个是命令行 FM 收音机。
