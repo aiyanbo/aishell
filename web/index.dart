@@ -59,7 +59,7 @@ class Shell {
     if (event.keyCode == KeyCode.ENTER) {
       var input = event.target as InputElement;
       String command = (event.target as InputElement).value;
-      if (command.isNotEmpty) {
+      if (command.trim().isNotEmpty) {
         logger.fine("Start execute command: ${(event.target as InputElement).value}");
         var response = new DivElement();
         response.innerHtml = executeCommand(command);
